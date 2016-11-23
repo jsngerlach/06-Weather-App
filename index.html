@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="" ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weather Application</title>
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhaina" rel="stylesheet">
+     <link rel="stylesheet" type="text/css" href="index.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css">
+</head>
+
+<body id="fontChanger" ng-controller="WeatherController as weather">
+    <div class="container">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h1 id=titleText>Weather App</h1>
+                <p>Always know if you'll need an umbrella!</p>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button ng-click = "weather.OpenWeatherMapApi('San Diego')" type="button" class="btn btn-warning">San Diego</button>
+            <button ng-click = "weather.OpenWeatherMapApi('Ashland')" type="button" class="btn btn-warning">Ashland</button>
+            <button ng-click = "weather.OpenWeatherMapApi('Redding')" type="button" class="btn btn-warning">Redding</button>
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="weather.city">
+            <span class="input-group-btn"><button type="button" class = "btn btn-default" ng-click = "weather.OpenWeatherMapApi(weather.city)">Go!</button></span>
+        </div>
+        <br>
+        <hr>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">City Information</div>
+                    <div class="panel-body">
+                    <div class="text-center">
+                        <img class="text-center" ng-src="http://openweathermap.org/img/w/{{weather.data.weather[0].icon}}.png">
+                    </div>
+                    
+                        <h1 class="text-center">{{weather.data.name}}</h1>
+                        <p class="text-center">Longitude:{{weather.data.coord.lon}}</p>
+                        <p class="text-center">Latitude:{{weather.data.coord.lat}} </p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-xs-4 well text-center">Temperature (F)<hr>{{weather.data.main.temp}}</div>
+                            <div class="col-xs-4 well text-center">Pressure<hr>{{weather.data.main.pressure}}</div>
+                            <div class="col-xs-4 well text-center">Humidity<hr>{{weather.data.main.humidity}}</div>
+                            <div class="col-xs-4 well text-center">Lowest Temp (F)<hr>{{weather.data.main.temp_min}}</div>
+                            <div class="col-xs-4 well text-center">Highest Temp (F)<hr>{{weather.data.main.temp_max}}</div>
+                            <div class="col-xs-4 well text-center">Wind Speed<hr>{{weather.data.wind.speed}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">Search History</div>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <tr ng-repeat="result in weather.results">
+                                <td>{{result.name}}</td>
+                                <td>{{result.date}}</td>
+                                <td>{{result.time}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script src="app/app.module.js"></script>
+    <script src="app/home/home.controller.js"></script>
+
+</body>
+
+</html>
